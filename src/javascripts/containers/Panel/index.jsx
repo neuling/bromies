@@ -8,7 +8,7 @@ export default class Panel extends Component {
   render() {
     return (
       <div>
-        Bromies ...
+        Bromies!
       </div>
     );
   }
