@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "Bromies",
+  "description": "Link sharing where it belongs",
+  "version": "0.0.1",
+  "browser_action": {
+    "default_title": "Bromies",
+    "default_popup": "panel.html"
+  },
+  "icons": {
+    "16": "images/icon_2.png",
+    "48": "images/icon_2.png",
+    "128": "images/icon_2.png"
+  },
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": false
+  },
+  "web_accessible_resources": [
+    "js/*.js",
+    "css/*.css"
+  ],
+  "permissions": [
+    "storage",
+    "tabs",
+    "https://*.firebaseio.com/*"
+  ]
+}
