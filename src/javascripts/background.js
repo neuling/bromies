@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import faker from 'faker';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCKAQvwZ62HogyefwHcaHtDmh17ejQAYVI',
@@ -7,12 +8,23 @@ firebase.initializeApp({
   storageBucket: 'project-2541425427882320451.appspot.com',
 });
 
-firebase.auth().onAuthStateChanged((user) => {
-  console.log(user);
-
-  if (!user) {
-    firebase.auth().signInAnonymously().catch((error) => {
-      console.log(error);
-    });
-  }
+chrome.runtime.onInstalled.addListener(() => {
+  firebase.auth().onAuthStateChanged((currentUser) => {
+    console.log(currentUser);
+    if (!currentUser) {
+      firebase.auth().signInAnonymously().then((user) => {
+        const userName = faker.internet.userName();
+        user.updateProfile({
+          displayName: userName,
+          photoURL: `https://robohash.org/${userName}`,
+        }).then(() => {
+          console.log('ok');
+        }, (error) => {
+          console.log('ok', error);
+        });
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  });
 });
