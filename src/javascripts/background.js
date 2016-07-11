@@ -1,12 +1,15 @@
 import firebase from 'firebase';
 import faker from 'faker';
+import firebaseConfig from './constants/firebase';
 
-firebase.initializeApp({
-  apiKey: 'AIzaSyCKAQvwZ62HogyefwHcaHtDmh17ejQAYVI',
-  authDomain: 'project-2541425427882320451.firebaseapp.com',
-  databaseURL: 'https://project-2541425427882320451.firebaseio.com',
-  storageBucket: 'project-2541425427882320451.appspot.com',
-});
+firebase.initializeApp(firebaseConfig);
+
+function writeInitialUserSturcture(userId) {
+  firebase.database().ref(`users/${userId}`).set({
+    friends: {},
+    inbox: {},
+  });
+}
 
 chrome.runtime.onInstalled.addListener(() => {
   firebase.auth().onAuthStateChanged((currentUser) => {
@@ -17,11 +20,8 @@ chrome.runtime.onInstalled.addListener(() => {
         user.updateProfile({
           displayName: userName,
           photoURL: `https://robohash.org/${userName}`,
-        }).then(() => {
-          console.log('ok');
-        }, (error) => {
-          console.log('ok', error);
         });
+        writeInitialUserSturcture(user.uid);
       }).catch((error) => {
         console.log(error);
       });
