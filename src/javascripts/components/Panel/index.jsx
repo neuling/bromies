@@ -6,10 +6,9 @@ import Inbox from 'Inbox';
 import Friends from 'Friends';
 import Profile from 'Profile';
 
-export default ({ name, avatar, inbox, friends }) => {
-  console.log(friends, inbox);
+export default ({ profile, inbox, friends, friendRequests }) => {
   return (
-    <Tabs className="panel">
+    <Tabs className="panel" selectedIndex={1}>
       <TabList>
         <Tab>Inbox</Tab>
         <Tab>Friends</Tab>
@@ -19,10 +18,10 @@ export default ({ name, avatar, inbox, friends }) => {
         <Inbox inbox={inbox} />
       </TabPanel>
       <TabPanel>
-        <Friends friends={friends} />
+        <Friends friends={friends} friendRequests={friendRequests} />
       </TabPanel>
       <TabPanel>
-        <Profile name={name} avatar={avatar} />
+        <Profile {...profile} />
       </TabPanel>
     </Tabs>
   );

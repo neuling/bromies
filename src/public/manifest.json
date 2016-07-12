@@ -14,7 +14,7 @@
   },
   "background": {
     "scripts": ["js/background.js"],
-    "persistent": false
+    "persistent": true
   },
   "web_accessible_resources": [
     "js/*.js",
@@ -24,5 +24,6 @@
     "storage",
     "tabs",
     "https://*.firebaseio.com/*"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'"
 }
