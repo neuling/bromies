@@ -5,16 +5,11 @@ import map from 'lodash/map';
 import AddFriend from './AddFriend';
 import FriendRequests from 'FriendRequests';
 
-export default ({ friends, friendRequests }) => {
-  const remove = (userId) => {
-    const firebase = chrome.extension.getBackgroundPage().firebase;
-    const currentUser = firebase.auth().currentUser;
+import { deleteFriend } from '../../actions/friends';
 
-    firebase.database().ref().update({
-      [`/users/${userId}/friends/${currentUser.uid}`]: null,
-      [`/users/${userId}/friendRequests/${currentUser.uid}`]: null,
-      [`/users/${currentUser.uid}/friends/${userId}`]: null,
-    });
+export default ({ friends, friendRequests }) => {
+  const remove = (friendId) => {
+    deleteFriend(friendId);
   };
 
   const friend = (data, id) => {
