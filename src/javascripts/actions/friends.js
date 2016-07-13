@@ -16,9 +16,7 @@ export const addFriend = (friendName) => {
       const friendId = snapshot.val();
       if (friendId) {
         ref('users').update({
-          [`${currentUser().uid}/friends/${friendId}`]: {
-            pending: true,
-          },
+          [`${currentUser().uid}/friends/${friendId}`]: { pending: true },
           [`${friendId}/friendRequests/${currentUser().uid}`]: true,
         });
         resolve();
